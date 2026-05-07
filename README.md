@@ -543,7 +543,6 @@ To get the call stack at the point where exception `e` was thrown use `mg.stack_
 
 ``` python
 import memory_graph as mg
-import traceback;
 
 def fun3():
     d = [0] * 3
@@ -559,19 +558,22 @@ def fun1():
 try:
     fun1()
 except Exception as e:
-    traceback.print_exc()           # print trace back
-    mg.show(mg.stack_exception(e))  # graph trace back
+    mg.show(mg.stack_exception(e)) # graph traceback
+    raise e                        # raise to print traceback
 ```
 ```
 $ python exception_example.py
 Traceback (most recent call last):
-  File "exception_example.py", line 16, in <module>
+  File "/home/bterwijn/temp/e.py", line 18, in <module>
+    raise e                        # raise to print traceback
+    ^^^^^^^
+  File "/home/bterwijn/temp/e.py", line 15, in <module>
     fun1()
-  File "exception_example.py", line 13, in fun1
+  File "/home/bterwijn/temp/e.py", line 12, in fun1
     fun2()
-  File "exception_example.py", line 10, in fun2
+  File "/home/bterwijn/temp/e.py", line 9, in fun2
     fun3()
-  File "exception_example.py", line 7, in fun3
+  File "/home/bterwijn/temp/e.py", line 6, in fun3
     d[i] = i  # throws IndexError when i = 3
     ~^^^
 IndexError: list assignment index out of range
