@@ -1,4 +1,3 @@
-
 def available_seats(capacity, reserved):
     return capacity - reserved
 
@@ -19,7 +18,7 @@ def main():
     trips = [
         {"train": "IC 3021", "revenue": 4800, "capacity": 240, "reserved": 180},
         {"train": "IC 1745", "revenue": 3100, "capacity": 180, "reserved": 155},
-        {"train": "SPR 812", "revenue": 2200, "capacity": 160, "reserved": 160},  # sold out
+        {"train": "SPR 812", "revenue": 2200, "capacity": 160, "reserved": 160},
         {"train": "IC 9090", "revenue": 5200, "capacity": 260, "reserved": 210},
     ]
     print_trip_report(trips)
