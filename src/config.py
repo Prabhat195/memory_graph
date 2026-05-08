@@ -112,6 +112,10 @@ mg.config.type_to_node[MyClass] = lambda data: mg.Node_Key_Value(data,
 mg.config.type_to_node[MyClass] = lambda data: mg.Node_Table(data,
                                          [[data.x, data.y],
                                           [data.z, 'X']])
+
+mg.collapse_type(MyClass) # collapse type for graph readability and performance
+mg.reset_type(MyClass)    # reset to default introspection
+
 mg.config_default.reset()
 del MyClass, a
 
