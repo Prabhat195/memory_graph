@@ -539,7 +539,7 @@ and pressing &lt;Enter&gt; a number of times, results in:
 
 ## Debugging using Exceptions ##
 
-To get the call stack at the point where exception `e` was thrown use `mg.stack_exception(e)`. This allows you to graph the trace back for easier debugging, for example:
+To get the call stack at the point where exception `e` was raised use `mg.stack_exception(e)`. This allows you to graph the trace back for easier debugging, for example:
 
 ``` python
 import memory_graph as mg
@@ -547,7 +547,7 @@ import memory_graph as mg
 def fun3():
     d = [0] * 3
     for i in range(4):
-        d[i] = i  # throws IndexError when i = 3
+        d[i] = i  # raises IndexError when i = 3
     
 def fun2():
     fun3()
@@ -559,7 +559,7 @@ try:
     fun1()
 except Exception as e:
     mg.show(mg.stack_exception(e)) # graph traceback
-    raise e                        # raise to print traceback
+    raise e                        # reraise to print traceback
 ```
 ```
 $ python exception_example.py
@@ -1014,6 +1014,45 @@ mg.config.type_to_node[List_View] = (lambda l: mg.Node_Linear(l,
 ![bin_search_linear.png](https://raw.githubusercontent.com/bterwijn/memory_graph/main/images/bin_search_linear.png)
 
 Or see it in the [Memory Grah Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/bin_search.py&breakpoints=32&continues=1&timestep=0.5&play)
+
+## Collapse Type ##
+
+Sometimes a type has too many attributes or too many child nodes in the graph for it to stay readable. We use type 'MyClass' as an example here:
+
+```python
+import memory_graph as mg
+
+class MyClass:
+    def __init__(self):
+        self.children = {i: [i]*10 for i in range(5)}
+
+a = 1
+b = (1,2,3)
+c = MyClass()
+
+mg.l()
+```
+![collapse_type1.png](https://raw.githubusercontent.com/bterwijn/memory_graph/main/images/collapse_type1.png)
+
+Then we can collapse this type with `mg.collapse_type(<type-name>)`. This simply sets `mg.config.type_to_node[<type-name>]` to an empty `Node_Linear` and `mg.config.type_to_color[<type-name>]` to a gray color, so that we don't introspect it's attributes which will also increase graph making performance:
+
+```python
+import memory_graph as mg
+
+class MyClass:
+    def __init__(self):
+        self.children = {i: [i]*10 for i in range(5)}
+
+a = 1
+b = (1,2,3)
+c = MyClass()
+
+mg.collapse_type(MyClass)  # collapse type 'MyClass' for better graph readability
+mg.l()
+```
+![collapse_type1.png](https://raw.githubusercontent.com/bterwijn/memory_graph/main/images/collapse_type1.png)
+
+Use `mg.reset_type(<type_name>)` to remove the `type_to_node` and `type_to_color` configuration for a type and restore it's default introspection.
 
 # Graph Depth #
 To limit the size of the graph the maximum depth of the graph is set by `mg.config.max_graph_depth`. Additionally for each type a depth can be set to further limit the graph, as is done for type `B` in the example below. Scissors indicate where the graph is cut short. Alternatively the `id()` of a data elements can be used to limit the graph for that specific element, as is done for the value referenced by variable `c`.

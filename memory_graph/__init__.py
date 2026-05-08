@@ -525,3 +525,14 @@ def extend_torch(on=True):
         ext_torch.extend_torch()
     else:
         ext_torch.unextend_torch()
+
+
+# ------------ collapse type
+    
+def collapse_type(type_name):
+    mg.config.type_to_node[type_name] = lambda data: mg.Node_Linear(data, [])
+    mg.config.type_to_color[type_name] = "azure3"
+
+def reset_type(type_name):
+    del mg.config.type_to_node[type_name]
+    del mg.config.type_to_color[type_name]
