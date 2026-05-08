@@ -1050,7 +1050,7 @@ c = MyClass()
 mg.collapse_type(MyClass)  # collapse type 'MyClass' for better graph readability
 mg.l()
 ```
-![collapse_type1.png](https://raw.githubusercontent.com/bterwijn/memory_graph/main/images/collapse_type1.png)
+![collapse_type2.png](https://raw.githubusercontent.com/bterwijn/memory_graph/main/images/collapse_type2.png)
 
 Use `mg.reset_type(<type_name>)` to remove the `type_to_node` and `type_to_color` configuration for a type and restore it's default introspection.
 
