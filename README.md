@@ -1025,10 +1025,10 @@ import memory_graph as mg
 class MyClass:
     def __init__(self):
         self.children = {i: [i]*10 for i in range(5)}
-
 a = 1
-b = (1,2,3)
+b = (1, 2, 3)
 c = MyClass()
+d = (4, 5, 6, 7)
 
 mg.l()
 ```
@@ -1044,10 +1044,13 @@ class MyClass:
         self.children = {i: [i]*10 for i in range(5)}
 
 a = 1
-b = (1,2,3)
+b = (1, 2, 3)
 c = MyClass()
+d = (4, 5, 6, 7)
 
-mg.collapse_type(MyClass)  # collapse type 'MyClass' for better graph readability
+# for better graph readability in large graphs
+mg.collapse_type(type(c))  # collapse type(c) 
+mg.collapse_type(id(d))    # collapse id(d)
 mg.l()
 ```
 ![collapse_type2.png](https://raw.githubusercontent.com/bterwijn/memory_graph/main/images/collapse_type2.png)
