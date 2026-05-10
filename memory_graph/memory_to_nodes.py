@@ -20,9 +20,11 @@ def read_nodes(data):
     - the id of 'data' as root node.
     """
 
-    def data_to_node(data_type, data):
-        """ Returns the Node for 'data' based on it's type. """
-        if data_type in config.type_to_node: # for predefined types
+    def data_to_node(data_id, data_type, data):
+        """ Returns the Node for 'data' based on it's id or type. """
+        if data_id in config.type_to_node: # for ids
+            return config.type_to_node[data_id](data)
+        elif data_type in config.type_to_node: # for predefined types
             return config.type_to_node[data_type](data)
         elif utils.has_dict_attributes(data): # for user defined classes
             return Node_Key_Value(data, utils.filter_dict(utils.get_dict_attributes(data)) )
@@ -41,7 +43,7 @@ def read_nodes(data):
             if data_id in nodes:
                 node = nodes[data_id]
             else:
-                node = data_to_node(data_type, data)
+                node = data_to_node(data_id, data_type, data)
                 if isinstance(node, Node_Key_Value):
                     nodes_key_value.append(data_id)
                 nodes[data_id] = node
