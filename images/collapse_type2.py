@@ -9,7 +9,7 @@ b = (1, 2, 3)
 c = MyClass()
 d = (4, 5, 6, 7)
 
-# for better graph readability in large graphs
+# for better graph readability in large graphs:
 mg.collapse_type(type(c))  # collapse type(c) 
 mg.collapse_type(id(d))    # collapse id(d)
 mg.render(locals(), "collapse_type2.png")
