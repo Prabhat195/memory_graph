@@ -26,6 +26,9 @@ def read_nodes(data):
             return config.type_to_node[data_id](data)
         elif data_type in config.type_to_node: # for predefined types
             return config.type_to_node[data_type](data)
+        elif isinstance(data, type) and type in config.type_to_node:
+            # Handle classes with custom metaclasses (for example abc.ABCMeta).
+            return config.type_to_node[type](data)
         elif utils.has_dict_attributes(data): # for user defined classes
             return Node_Key_Value(data, utils.filter_dict(utils.get_dict_attributes(data)) )
         elif utils.is_finite_iterable(data): # for lists, tuples, sets, ...
