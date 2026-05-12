@@ -111,6 +111,8 @@ A better way to understand what values are shared is to draw a graph using [memo
 
 [Sliding Puzzle Solver](#sliding-puzzle-solver)
 
+[Control Flow](#control-flow)
+
 [Configuration](#configuration)
 
 [Introspection](#introspection)
