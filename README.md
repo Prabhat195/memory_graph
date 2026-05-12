@@ -830,26 +830,30 @@ This example shows the flow of control when using exception handling.
 def fun2():
     try:
         d = [0] * 3
-        for i in range(4):
+        for i in range(5):
             try:
                 d[i] = i  # raises IndexError when i=3
+                print(d[i])
             except TypeError as e:
                 print(type(e), e)
     except AssertionError as e:
         print(type(e), e)
-            
+    print('fun2() returns')
+
 def fun1():
     try:
         return fun2()
     except NameError as e:
         print(type(e), e)
-    
+    print('fun1() returns')
+
 try:
     fun1()
 except LookupError as e:
     print(type(e), e)
+print('program ended cleanly')
 ```
-Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/exceptions.py&breakpoints=19&continues=1&play). In the program an `IndexError` exception is raised which propagates up the call stack until it reaches an except clause that matches its type where it is handled. Here, it is handled by the `LookupError` except clause because `IndexError` is a subclass of `LookupError`. Exceptions that are not handled stop the execution of a program.
+Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/exceptions.py&breakpoints=22&continues=1&play). In the program an `IndexError` exception is raised which propagates up the call stack until it reaches an except clause that matches its type where it is handled. Here, it is handled by the `LookupError` except clause because `IndexError` is a subclass of `LookupError`. Exceptions that are not handled terminate the execution of a program while showing the traceback for analyses.
 
 ![exception_tree.png](https://raw.githubusercontent.com/bterwijn/memory_graph/main/images/exception_tree.png)
 
