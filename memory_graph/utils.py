@@ -15,6 +15,7 @@ def get_dict_attributes(value):
     return getattr(value,"__dict__")
 
 def is_not_state(obj):
+    """ Returns 'True' if 'obj' is not considered state, e.g. a function or method. """
     if isinstance(obj, (types.FunctionType, types.MethodType,
                         types.BuiltinFunctionType, types.BuiltinMethodType,
                         classmethod, staticmethod,
