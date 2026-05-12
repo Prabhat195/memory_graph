@@ -796,7 +796,7 @@ Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=http
 
 ## Decorator ##
 
-This example shows the flow of control when using a decorator.
+This example shows the flow of control when using a decorator. A decorator wraps a function and is active before and after the function is called.
 
 ```python
 def log_call(function):
@@ -849,7 +849,7 @@ try:
 except LookupError as e:
     print(type(e), e)
 ```
-Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/exceptions.py&breakpoints=19&continues=1&play). In the program an `IndexError` is raise and matched with various exceptions in the exception hierarchy below. It matches with the 'LookupError' exception and is handled there by just printing it. Exceptions that are not handled stop the execution of a program. 
+Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/exceptions.py&breakpoints=19&continues=1&play). In the program an `IndexError` exception is raised which propagates up the call stack until it reaches an except clause that matches its type where it is handled. Here, it is handled by the `LookupError` except clause because `IndexError` is a subclass of `LookupError`. Exceptions that are not handled stop the execution of a program.
 
 ![exception_tree.png](https://raw.githubusercontent.com/bterwijn/memory_graph/main/images/exception_tree.png)
 
