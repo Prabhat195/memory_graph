@@ -793,7 +793,7 @@ email.send('customer@email.com', 'Update to Privacy Policy')
 sms = Email_Notification(3, '0123456789')
 sms.send('001122334455', 'Update to Privacy Policy')
 ```
-Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/inheritance.py&breakpoints=36&play).
+Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/inheritance.py&breakpoints=36&continues=1&play).
 
 ## Decorator ##
 
@@ -821,7 +821,7 @@ total = calculate_total(7.5, 3, rounding=True)
 print(total)
 send_email("alice@example.com", "Your order is ready")
 ```
-Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/decorator.py&breakpoints=18&play).
+Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/decorator.py&breakpoints=18&continues=1&play).
 
 
 ## Exception Handling ##
@@ -851,7 +851,7 @@ try:
 except IndexError as e:
     print(type(e), e)
 ```
-Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/exceptions.py&breakpoints=19&play).
+Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/exceptions.py&breakpoints=19&continues=1&play).
 
 # Configuration #
 Different aspects of memory_graph can be configured. The default configuration can be reset by calling 'mg.config_default.reset()'. The Memory Graph Web Debugger gives examples of the [most important configurations](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/config.py&play).
