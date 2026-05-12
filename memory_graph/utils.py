@@ -4,6 +4,7 @@
 
 import math 
 import types
+import functools
 
 def has_dict_attributes(value):
     """ Returns 'True' if 'value' has a '__dict__' attribute. """
@@ -13,33 +14,43 @@ def get_dict_attributes(value):
     """ Returns the items of the '__dict__' attribute of 'value'."""
     return getattr(value,"__dict__")
 
-def is_function(obj):
-    if isinstance(obj, types.FunctionType) or isinstance(obj, types.MethodType):
+def is_not_state(obj):
+    if isinstance(obj, (types.FunctionType, types.MethodType,
+                        types.BuiltinFunctionType, types.BuiltinMethodType,
+                        classmethod, staticmethod,
+                        property, functools.partialmethod)):
         return True
-    return type(obj).__name__ in {'method_descriptor', 'builtin_function_or_method', 'getset_descriptor', 'classmethod_descriptor'}
+    return type(obj).__name__ in {
+        'method_descriptor',
+        'builtin_function_or_method',
+        'getset_descriptor',
+        'classmethod_descriptor',
+        'wrapper_descriptor',
+        'member_descriptor',
+        'method-wrapper',
+    }
 
 def filter_dict(dictionary):
     """ Filters out the unwanted dict attributes. """
-    if '__name__' in dictionary: # filter stack frames in global scope
-        return [
+    if '__name__' in dictionary: 
+        return [ # filter classes and modules, no non-state allowed as values
             (k,v) for k, v in dictionary.items() if
             not (type(k) is str and k.startswith('__')) and
             not isinstance(v,types.ModuleType) and
-            not is_function(v)
+            not is_not_state(v)
                 ]
-    return  [
+    return  [ # filter dictionaries, non-state allowed as values
             (k,v) for k, v in dictionary.items() if
             not (type(k) is str and k.startswith('__'))
             ]
 
 def filter_type_attributes(tuples):
     """ Filters out the unwanted type attributes (class/static methods). """
-    return [
+    return [ # filter type objects, no non-state allowed as values
         (k,v) for k, v in tuples if
         not (type(k) is str and k.startswith('__')) and
-        not type(v) in {classmethod, staticmethod} and
-        not callable(v)
-            ]
+        not is_not_state(v)
+        ]
 
 def make_sliceable(data):
     """ Returns a sliceble version of data, convert to list if not yet sliceble. """
