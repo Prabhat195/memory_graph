@@ -832,7 +832,7 @@ def fun2():
         d = [0] * 3
         for i in range(5):
             try:
-                d[i] = i  # raises IndexError when i=3
+                d[i] = i  # raises IndexError when i>=3
                 print(d[i])
             except TypeError as e:
                 print(type(e), e)
