@@ -35,5 +35,5 @@ class SMS_Notification(Notification_Service):
 email = Email_Notification(2, 'support@company.com')
 email.send('customer@email.com', 'Your report is ready')
 email.send('customer@email.com', 'Update to Privacy Policy')
-sms = Email_Notification(3, '0123456789')
+sms = SMS_Notification(3, '0123456789')
 sms.send('001122334455', 'Update to Privacy Policy')
