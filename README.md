@@ -823,7 +823,6 @@ send_email("alice@example.com", "Your order is ready")
 ```
 Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/decorator.py&breakpoints=18&continues=1&play).
 
-
 ## Exception Handling ##
 
 This example shows the flow of control when using exception handling.
@@ -834,7 +833,7 @@ def fun2():
         d = [0] * 3
         for i in range(4):
             try:
-                d[i] = i
+                d[i] = i  # raises IndexError when i=3
             except TypeError as e:
                 print(type(e), e)
     except AssertionError as e:
@@ -848,10 +847,12 @@ def fun1():
     
 try:
     fun1()
-except IndexError as e:
+except LookupError as e:
     print(type(e), e)
 ```
-Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/exceptions.py&breakpoints=19&continues=1&play).
+Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/exceptions.py&breakpoints=19&continues=1&play). In the program an `IndexError` is raise and matched with various exceptions in the exception hierarchy below. It matches with the 'LookupError' exception and is handled there by just printing it. Exceptions that are not handled stop the execution of a program. 
+
+![exception_tree.png](https://raw.githubusercontent.com/bterwijn/memory_graph/main/images/exception_tree.png)
 
 # Configuration #
 Different aspects of memory_graph can be configured. The default configuration can be reset by calling 'mg.config_default.reset()'. The Memory Graph Web Debugger gives examples of the [most important configurations](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/config.py&play).

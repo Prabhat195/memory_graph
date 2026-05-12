@@ -17,5 +17,5 @@ def fun1():
     
 try:
     fun1()
-except IndexError as e:
+except LookupError as e:
     print(type(e), e)

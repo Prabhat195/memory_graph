@@ -30,6 +30,9 @@ python linked_list.py
 python bin_tree.py
 python hash_set.py
 
+# exception tree
+python exception_tree.py
+
 # configuration
 python not_node_types.py
 
