@@ -731,7 +731,6 @@ In this configuration example we show the decimal, binary and [two's complement 
 
 ![bitwise_operators.png](https://raw.githubusercontent.com/bterwijn/memory_graph/main/images/bitwise_operators.png)
 
-
 # Sliding Puzzle Solver #
 
 A sliding puzzle solver as a challenging example showing how memory_graph deals with large amounts of data. Click "Continue" to step through the breadth-first search generations until a solution path is found:
@@ -740,6 +739,117 @@ A sliding puzzle solver as a challenging example showing how memory_graph deals 
 
 ![sliding_puzzle.png](https://raw.githubusercontent.com/bterwijn/memory_graph/main/images/sliding_puzzle.png)
 
+# Control Flow #
+
+Some examples where we focus on the flow of control of Python code.
+
+## Inheritance ##
+
+This example shows the flow of control when using inheritance with:
+- `super()`
+- class variable `message_count`
+
+```python
+from datetime import datetime
+
+class Notification_Service:
+    message_count = 0
+    
+    def __init__(self, priority):
+        self.priority = priority
+        self.log = []
+
+    def send(self, sender, receiver, message):
+        self.log.append((type(self).__name__, self.priority, sender, receiver, message))
+        Notification_Service.message_count += 1
+
+class Email_Notification(Notification_Service):
+    
+    def __init__(self, priority, from_email):
+        super().__init__(priority)
+        self.from_email = from_email
+        
+    def send(self, to_email, message):
+        super().send(self.from_email, to_email, message)
+        print(f'sending Email from:{self.from_email} to:{to_email}')
+        print(f'priority: {self.priority} message: "{message}"')
+
+class SMS_Notification(Notification_Service):
+    
+    def __init__(self, priority, from_nr):
+        super().__init__(priority)
+        self.from_nr = from_nr
+        
+    def send(self, to_nr, message):
+        super().send(self.from_nr, to_nr, message)
+        print(f'sending SMS from:{self.from_nr} to:{to_nr}')
+        print(f'priority: {self.priority} message: "{message}"')
+        
+email = Email_Notification(3, 'support@company.com')
+email.send('customer@email.com', 'Your report is ready')
+email.send('customer@email.com', 'Update to Privacy Policy')
+sms = Email_Notification(3, '0123456789')
+sms.send('001122334455', 'Update to Privacy Policy')
+```
+Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/inheritance.py&breakpoints=36&play).
+
+## Decorator ##
+
+This example shows the flow of control when using a decorator.
+
+```python
+def log_call(function):
+    def wrapper(*args, **kwargs):
+        print(f"Calling {function.__name__} with: {args}, {kwargs}")
+        returned = function(*args, **kwargs)
+        print(f"Finished {function.__name__} with return value: {returned}")
+        return returned
+    return wrapper
+
+@log_call
+def calculate_total(price, quantity, rounding=False):
+    result = price * quantity
+    return round(result) if rounding else result
+
+@log_call
+def send_email(receiver, message, sender="support@company.com"):
+    print(f"Sending email to:{receiver} from:{sender}, {message}")
+
+total = calculate_total(7.5, 3, rounding=True)
+print(total)
+send_email("alice@example.com", "Your order is ready")
+```
+Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/decorator.py&breakpoints=18&play).
+
+
+## Exception Handling ##
+
+This example shows the flow of control when using exception handling.
+
+```python
+def fun2():
+    try:
+        d = [0] * 3
+        for i in range(4):
+            try:
+                d[i] = i
+            except TypeError as e:
+                print(type(e), e)
+    except AssertionError as e:
+        print(type(e), e)
+            
+def fun1():
+    try:
+        return fun2()
+    except NameError as e:
+        print(type(e), e)
+    
+try:
+    fun1()
+except IndexError as e:
+    print(type(e), e)
+```
+Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/exceptions.py&breakpoints=19&play).
 
 # Configuration #
 Different aspects of memory_graph can be configured. The default configuration can be reset by calling 'mg.config_default.reset()'. The Memory Graph Web Debugger gives examples of the [most important configurations](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/config.py&play).
