@@ -33,7 +33,7 @@ class SMS_Notification(Notification_Service):
         print(f'sending SMS from:{self.from_nr} to:{to_nr}')
         print(f'priority: {self.priority} message: "{message}"')
         
-email = Email_Notification(3, 'support@company.com')
+email = Email_Notification(2, 'support@company.com')
 email.send('customer@email.com', 'Your report is ready')
 email.send('customer@email.com', 'Update to Privacy Policy')
 sms = Email_Notification(3, '0123456789')
