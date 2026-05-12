@@ -752,7 +752,6 @@ This example shows the flow of control when using inheritance with:
 - class variable `message_count`
 
 ```python
-from datetime import datetime
 
 class Notification_Service:
     message_count = 0
@@ -793,7 +792,7 @@ email.send('customer@email.com', 'Update to Privacy Policy')
 sms = Email_Notification(3, '0123456789')
 sms.send('001122334455', 'Update to Privacy Policy')
 ```
-Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/inheritance.py&breakpoints=36&continues=1&play).
+Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/inheritance.py&breakpoints=35&continues=1&play).
 
 ## Decorator ##
 

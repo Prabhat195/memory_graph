@@ -1,4 +1,3 @@
-from datetime import datetime
 
 class Notification_Service:
     message_count = 0
