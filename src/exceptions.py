@@ -5,7 +5,7 @@ def fun2():
             try:
                 d[i] = i  # raises IndexError when i>=3
                 print(d[i])
-            except TypeError as e:
+            except ZeroDivisionError as e:
                 print(type(e), e)
     except AssertionError as e:
         print(type(e), e)
