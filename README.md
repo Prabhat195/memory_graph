@@ -853,7 +853,7 @@ except LookupError as e:
     print(type(e), e)
 print('program ended cleanly')
 ```
-Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/exceptions.py&breakpoints=22&continues=1&play). In the program an `IndexError` exception is raised which propagates up the call stack until it reaches an except clause that matches its type where it is handled. Here, it is handled by the `LookupError` except clause because `IndexError` is a subclass of `LookupError`. Exceptions that are not handled terminate the execution of a program while showing the traceback for analyses.
+Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/exceptions.py&breakpoints=22&continues=1&play). In the program an `IndexError` exception is raised which propagates up the call stack until it reaches an except clause that matches its type where it is handled. Here, it is handled by the `LookupError` except clause because `IndexError` is a subclass of `LookupError`. Exceptions that are not handled terminate the execution of a program while its traceback is shown for analyses.
 
 ![exception_tree.png](https://raw.githubusercontent.com/bterwijn/memory_graph/main/images/exception_tree.png)
 
