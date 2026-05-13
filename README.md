@@ -857,6 +857,108 @@ Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=http
 
 ![exception_tree.png](https://raw.githubusercontent.com/bterwijn/memory_graph/main/images/exception_tree.png)
 
+## Lazy Evaluation ##
+
+In the following Eager and Lazy ealuation examples, we use this `pr()` function to print in what order things are created and used.
+
+```python
+def pr(tag, v):
+    print(tag, v)
+    return v
+```
+
+With eager evaluation, the function creates all three elements up front and stores them in a list before iteration begins. With lazy evaluation, the function returns a generator that creates each element only when it is needed.
+
+<table>
+    <tr> <td width="50%" valign="top"><strong>Eager</strong></td> <td width="50%" valign="top"><strong>Lazy</strong></td></tr>
+    <tr><td width="50%" valign="top">
+
+```python
+def fun():
+    result = []
+    for i in range(3):
+        result.append(pr('create:', i))
+    return result
+
+for i in fun():
+    pr('use:', i)
+```
+
+Run in [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/eager_return.py&play)
+
+  </td><td width="50%" valign="top">
+
+```python
+def fun():
+    for i in range(3):
+        yield pr('create:', i)
+
+
+
+for i in fun():
+    pr('use:', i)
+```
+
+Run in [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/lazy_yield.py&play)
+
+  </td></tr>
+    <tr><td width="50%" valign="top">
+
+```python
+def fun():
+    return [
+        pr('create:', i)
+        for i in range(3)
+    ]
+
+for i in fun():
+    pr('use:', i)
+```
+
+Run in [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/eager_compri.py&play)
+
+  </td><td width="50%" valign="top">
+
+```python
+def fun():
+    return (
+        pr('create:', i)
+        for i in range(3)
+    )
+
+for i in fun():
+    pr('use:', i)
+```
+
+Run in [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/lazy_express.py&play)
+
+  </td></tr>
+    <tr><td width="50%" valign="top">
+
+```text
+create: 0
+create: 1
+create: 2
+use: 0
+use: 1
+use: 2
+```
+
+  </td><td width="50%" valign="top">
+
+```text
+create: 0
+use: 0
+create: 1
+use: 1
+create: 2
+use: 2
+```
+
+  </td></tr>
+</table>
+
+
 # Configuration #
 Different aspects of memory_graph can be configured. The default configuration can be reset by calling 'mg.config_default.reset()'. The Memory Graph Web Debugger gives examples of the [most important configurations](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/config.py&play).
 
