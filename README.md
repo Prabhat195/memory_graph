@@ -883,6 +883,7 @@ def fun():
 for i in fun():
     pr('use:', i)
 ```
+
 Run in [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/eager_return.py&play)
 
   </td><td width="50%" valign="top">
@@ -897,6 +898,7 @@ def fun():
 for i in fun():
     pr('use:', i)
 ```
+
 Run in [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/lazy_yield.py&play)
   </td></tr>
     <tr><td width="50%" valign="top">
@@ -911,6 +913,7 @@ def fun():
 for i in fun():
     pr('use:', i)
 ```
+
 Run in [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/eager_compri.py&play)
 
   </td><td width="50%" valign="top">
@@ -925,6 +928,7 @@ def fun():
 for i in fun():
     pr('use:', i)
 ```
+
 Run in [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/lazy_express.py&play)
   </td></tr>
     <tr><td width="50%" valign="top">
