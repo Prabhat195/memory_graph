@@ -868,8 +868,8 @@ def pr(tag, v):
 ```
 
 <table>
-  <tr> <td valign="top"> Eager </td> <td valign="top"> Lazy </td></tr>
-  <tr><td valign="top">
+    <tr> <td width="50%" valign="top"> **Eager** </td> <td width="50%" valign="top"> **Lazy** </td></tr>
+    <tr><td width="50%" valign="top">
 
 ```python
 def fun():
@@ -883,7 +883,7 @@ for i in fun():
 ```
 Run in [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/eager_return.py&play)
 
-  </td><td valign="top">
+    </td><td width="50%" valign="top">
 
 ```python
 def fun():
@@ -895,28 +895,34 @@ for i in fun():
 ```
 Run in [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/lazy_yield.py&play)
   </td></tr>
-  <tr><td valign="top">
+    <tr><td width="50%" valign="top">
 
 ```python
 def fun():
-    return [pr('create:', i) for i in range(3)]
+    return [
+        pr('create:', i)
+        for i in range(3)
+    ]
 
 for i in fun():
     pr('use:', i)
 ```
 Run in [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/eager_compri.py&play)
-  </td><td valign="top">
+    </td><td width="50%" valign="top">
 
 ```python
 def fun():
-    return (pr('create:', i) for i in range(3))
+    return (
+        pr('create:', i)
+        for i in range(3)
+    )
 
 for i in fun():
     pr('use:', i)
 ```
 Run in [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/lazy_express.py&play)
   </td></tr>
-    <tr><td valign="top">
+    <tr><td width="50%" valign="top">
 
 ```text
 create: 0
@@ -927,7 +933,7 @@ use: 1
 use: 2
 ```
 
-  </td><td valign="top">
+    </td><td width="50%" valign="top">
 
 ```text
 create: 0
