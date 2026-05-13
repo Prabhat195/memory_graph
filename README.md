@@ -859,13 +859,15 @@ Run it in the [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=http
 
 ## Lazy Evaluation ##
 
-In the following eager and lazy ealuation examples, we use this `pr()` function to print what happens over time.
+In the following Eager and Lazy ealuation examples, we use this `pr()` function to print in what order things are created and used.
 
 ```python
 def pr(tag, v):
     print(tag, v)
     return v
 ```
+
+With eager evaluation, the function creates all three elements up front and stores them in a list before iteration begins. With lazy evaluation, the function returns a generator that creates each element only when it is needed.
 
 <table>
     <tr> <td width="50%" valign="top"><strong>Eager</strong></td> <td width="50%" valign="top"><strong>Lazy</strong></td></tr>
