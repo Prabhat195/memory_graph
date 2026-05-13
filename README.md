@@ -900,6 +900,7 @@ for i in fun():
 ```
 
 Run in [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/lazy_yield.py&play)
+
   </td></tr>
     <tr><td width="50%" valign="top">
 
@@ -930,6 +931,7 @@ for i in fun():
 ```
 
 Run in [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/lazy_express.py&play)
+
   </td></tr>
     <tr><td width="50%" valign="top">
 
