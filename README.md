@@ -830,10 +830,10 @@ This example shows the flow of control when using exception handling.
 def fun2():
     try:
         d = [0] * 3
-        for i in range(5):
+        for i in range(6):
             try:
+                print(f'{i=}')
                 d[i] = i  # raises IndexError when i>=3
-                print(d[i])
             except ZeroDivisionError as e:
                 print(type(e), e)
     except AssertionError as e:
