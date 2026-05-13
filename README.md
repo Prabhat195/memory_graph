@@ -868,7 +868,7 @@ def pr(tag, v):
 ```
 
 <table>
-    <tr> <td width="50%" valign="top"> **Eager** </td> <td width="50%" valign="top"> **Lazy** </td></tr>
+    <tr> <td width="50%" valign="top"><strong>Eager</strong></td> <td width="50%" valign="top"><strong>Lazy</strong></td></tr>
     <tr><td width="50%" valign="top">
 
 ```python
@@ -883,7 +883,7 @@ for i in fun():
 ```
 Run in [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/eager_return.py&play)
 
-    </td><td width="50%" valign="top">
+  </td><td width="50%" valign="top">
 
 ```python
 def fun():
@@ -908,7 +908,8 @@ for i in fun():
     pr('use:', i)
 ```
 Run in [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/eager_compri.py&play)
-    </td><td width="50%" valign="top">
+
+  </td><td width="50%" valign="top">
 
 ```python
 def fun():
