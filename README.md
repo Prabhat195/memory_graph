@@ -917,7 +917,7 @@ for i in fun():
 Run in [Memory Graph Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/lazy_express.py&play)
   </td></tr>
   <tr><td valign="top">
-```
+```text
 create: 0
 create: 1
 create: 2
@@ -926,7 +926,7 @@ use: 1
 use: 2
 ```
   </td><td valign="top">
-```
+```text
 create: 0
 use: 0
 create: 1
