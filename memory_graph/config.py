@@ -35,7 +35,7 @@ def to_string(data):
             return type_to_string[data_type](data)
         return str(data)
     except Exception as e:
-        return f'no string: {type(e)} {e}'
+        return f'no stringification, {type(e).__name__}: {e}'
 
 type_to_node = { }
 
