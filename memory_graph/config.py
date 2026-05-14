@@ -29,10 +29,13 @@ type_to_string = { }
 
 def to_string(data):
     """ Convert data to string. """
-    data_type = type(data)
-    if data_type in type_to_string:
-        return type_to_string[data_type](data)
-    return str(data)
+    try:
+        data_type = type(data)
+        if data_type in type_to_string:
+            return type_to_string[data_type](data)
+        return str(data)
+    except Exception as e:
+        return f'no string: {type(e)} {e}'
 
 type_to_node = { }
 
