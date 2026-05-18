@@ -3,42 +3,58 @@
 # SPDX-License-Identifier: BSD-2-Clause
 
 """ This module provides helper functions to access the configuration of the memory graph. """
+import memory_graph.utils as utils
 from memory_graph.slicer import Slicer
 import memory_graph.config as config
 
-def get_property(data_id, data_type, node_type, dictionary, default):
+def get_property(data_id, data_types, node_type, dictionary, default):
     if data_id in dictionary:
         return dictionary[data_id]
-    if data_type in dictionary:
-        return dictionary[data_type]
+    for data_type in data_types:
+        if data_type in dictionary:
+            return dictionary[data_type]
     if node_type in dictionary:
         return dictionary[node_type]
     return default
 
+def get_to_text(data, default=None):
+    return get_property(id(data),
+                        utils.get_all_types(data),
+                        None,
+                        config.type_to_text, 
+                        default )
+
+def get_to_node(data, default=None):
+    return get_property(id(data),
+                        utils.get_all_types(data),
+                        None,
+                        config.type_to_node, 
+                        default )
+
 def get_color(node, default='white'):
     return get_property(node.get_id(),
-                        node.get_type(),
+                        utils.get_all_types(node.get_type()),
                         type(node),
                         config.type_to_color, 
                         default)
     
 def get_vertical(node, default):
     horizontal = get_property(node.get_id(),
-                              node.get_type(),
+                              utils.get_all_types(node.get_type()),
                               type(node),
                               config.type_to_horizontal,
                               None)
     if isinstance(horizontal, bool):
         return not horizontal
     return get_property(node.get_id(),
-                        node.get_type(),
+                        utils.get_all_types(node.get_type()),
                         type(node),
                         config.type_to_vertical,
                         default)
 
 def get_slicer(node, data, default=Slicer(3,2,3)):
     return get_property(id(data),
-                        type(data),
+                        utils.get_all_types(node.get_type()),
                         type(node), 
                         config.type_to_slicer, 
                         default)
