@@ -413,12 +413,12 @@ import memory_graph as mg
 mg.config.type_to_horizontal[list] = True  # horizontal lists
 
 def binary(value: int) -> list[int]:
-    mg.block(mg.show(), mg.stack())
+    mg.block(mg.show, mg.stack())
     if value == 0:
         return []
     quotient, remainder = divmod(value, 2)
     result = binary(quotient) + [remainder]
-    mg.block(mg.show(), mg.stack())
+    mg.block(mg.show, mg.stack())
     return result
 
 print( binary(100) )
