@@ -6,4 +6,5 @@ def binary(value: int) -> list[int]:
     quotient, remainder = divmod(value, 2)
     return binary(quotient) + [remainder]
 
-print( binary(100) )
+result = binary(100)
+print( result )
