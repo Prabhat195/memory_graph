@@ -17,11 +17,11 @@ def get_property(data_id, data_types, node_type, dictionary, default):
         return dictionary[node_type]
     return default
 
-def get_to_text(data, default=None):
+def get_to_string(data, default=None):
     return get_property(id(data),
                         utils.get_all_types(data),
                         None,
-                        config.type_to_text, 
+                        config.type_to_string, 
                         default )
 
 def get_to_node(data, default=None):

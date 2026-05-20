@@ -7,7 +7,7 @@ def builtin_children(cls):
 
 def format_name(name, highlight_exceptions):
     if name in highlight_exceptions:
-        print(f'{highlight_exceptions=}')
+        #print(f'{highlight_exceptions=}')
         values = highlight_exceptions[name]
         font_size = ''
         font_color = ''
