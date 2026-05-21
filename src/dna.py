@@ -9,7 +9,7 @@ def find_kmer_positions(dna, k):
     return positions
 
 
-dna = "ACGTTGCATGTCGCATGATGCATGAGAGCT"
+dna = "ACGTTGCACGTTAGCACGCAC"
 k = 4
 
 result = find_kmer_positions(dna, k)
