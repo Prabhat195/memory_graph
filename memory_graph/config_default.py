@@ -78,6 +78,7 @@ def reset():
             if dict in config.embedding_types else 
             Node_Linear(data, utils.filter_dict(data) )
         ),
+        BaseException: lambda data: Node_Leaf(data, str(data)),
     }
     
     """ Colors of different types in the graph. """
@@ -103,6 +104,8 @@ def reset():
         dict : "#60a5ff",
         types.MappingProxyType : "dodgerblue2", # not used
         range : "cornsilk2",
+        # ================= exception
+        BaseException : "#ff5555",
     }
 
 
