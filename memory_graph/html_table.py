@@ -16,7 +16,8 @@ def format_string(s):
     """ Helper function to format the string s to be shown in the graph. Setting the max_string_length and escaping html characters. """
     s = config.to_string(s)
     s = (s[:config.max_string_length] + '...') if len(s) > config.max_string_length else s
-    return html.escape(s)
+    s = html.escape(s)
+    return s.replace('\n', ' <BR/> ')
 
 class HTML_Table:
     """
@@ -67,7 +68,6 @@ class HTML_Table:
 
     def add_entry(self, node, nodes, child, id_to_slices, rounded=False, border=1, dashed=False, embed=False):
         """ Add child to the table either as reference if it is a Node_Base or as a value otherwise. """
-        #print('child:', child)
         child_id = id(child)
         if not embed and child_id in nodes:
             child = nodes[child_id] 
