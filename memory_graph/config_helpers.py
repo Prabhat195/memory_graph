@@ -33,28 +33,28 @@ def get_to_node(data, default=None):
 
 def get_color(node, default='white'):
     return get_property(node.get_id(),
-                        utils.get_all_types(node.get_type()),
+                        utils.get_all_types(node.get_data()),
                         type(node),
                         config.type_to_color, 
                         default)
     
 def get_vertical(node, default):
     horizontal = get_property(node.get_id(),
-                              utils.get_all_types(node.get_type()),
+                              utils.get_all_types(node.get_data()),
                               type(node),
                               config.type_to_horizontal,
                               None)
     if isinstance(horizontal, bool):
         return not horizontal
     return get_property(node.get_id(),
-                        utils.get_all_types(node.get_type()),
+                        utils.get_all_types(node.get_data()),
                         type(node),
                         config.type_to_vertical,
                         default)
 
 def get_slicer(node, data, default=Slicer(3,2,3)):
     return get_property(id(data),
-                        utils.get_all_types(node.get_type()),
+                        utils.get_all_types(node.get_data()),
                         type(node), 
                         config.type_to_slicer, 
                         default)

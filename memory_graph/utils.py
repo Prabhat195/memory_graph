@@ -7,10 +7,7 @@ import types
 import functools
 
 def get_all_types(obj):
-    if isinstance(obj, type):
-        cls = obj
-    else:
-        cls = type(obj)
+    cls = type(obj)
     if hasattr(cls, '__mro__'):
         return cls.__mro__
     else:
