@@ -6,6 +6,14 @@ import math
 import types
 import functools
 
+import memory_graph.config as config
+
+def limit_string(s):
+    """ Helper function to limit the length of a string s to the 'max_string_length' in the config. """
+    if len(s) > config.max_string_length:
+        return s[:config.max_string_length] + '...'
+    return s
+
 def get_all_types(obj):
     cls = type(obj)
     if hasattr(cls, '__mro__'):

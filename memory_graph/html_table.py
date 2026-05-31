@@ -5,6 +5,7 @@
 from memory_graph.node_base import Node_Base 
 import memory_graph.node_base
 import memory_graph.config as config
+import memory_graph.config_helpers as config_helpers
 import html
 
 def html_table_frame(s, border, color, spacing=5):
@@ -12,10 +13,20 @@ def html_table_frame(s, border, color, spacing=5):
     return (f'<\n<TABLE BORDER="{border}" CELLBORDER="1" CELLSPACING="{spacing}" CELLPADDING="0" BGCOLOR="{color}" PORT="table">\n    <TR>' +
             s + '</TR>\n</TABLE>\n>')
 
+def to_string(data):
+    """ Convert data to string. """
+    try:
+        data_type = type(data)
+        if data_type in config.type_to_string:
+            return config.type_to_string[data_type](data)
+        return str(data)
+    except Exception as e:
+        return f'no stringification, {type(e).__name__}: {e}'
+
 def format_string(s):
     """ Helper function to format the string s to be shown in the graph. Setting the max_string_length and escaping html characters. """
-    s = config.to_string(s)
-    s = (s[:config.max_string_length] + '...') if len(s) > config.max_string_length else s
+    s = to_string(s)
+    #s = config_helpers.get_to_string(s)
     s = html.escape(s)
     return s.replace('\n', ' <BR/> ')
 

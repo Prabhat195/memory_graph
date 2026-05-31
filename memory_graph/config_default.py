@@ -60,11 +60,11 @@ def reset():
 
     """ Types that need a special conversion """
     config.type_to_string = {
-        types.FunctionType: lambda data: data.__qualname__,
-        types.MethodType: lambda data: data.__qualname__,
-        classmethod: lambda data: data.__qualname__,
-        staticmethod: lambda data: data.__qualname__,
-        type(len): lambda data: data.__qualname__,
+        types.FunctionType: lambda data: limit_string(data.__qualname__),
+        types.MethodType: lambda data: limit_string(data.__qualname__),
+        classmethod: lambda data: limit_string(data.__qualname__),
+        staticmethod: lambda data: limit_string(data.__qualname__),
+        type(len): lambda data: limit_string(data.__qualname__),
     }
     
     """ Conversion from type to Node objects. """

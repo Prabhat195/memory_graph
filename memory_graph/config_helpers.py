@@ -6,6 +6,7 @@
 import memory_graph.utils as utils
 from memory_graph.slicer import Slicer
 import memory_graph.config as config
+import memory_graph.utils as utils
 
 def get_property(data_id, data_types, node_type, dictionary, default):
     if data_id in dictionary:
@@ -17,28 +18,39 @@ def get_property(data_id, data_types, node_type, dictionary, default):
         return dictionary[node_type]
     return default
 
-def get_to_string(data, default=None):
-    return get_property(id(data),
-                        utils.get_all_types(data),
-                        None,
-                        config.type_to_string, 
-                        default )
-
-def get_to_node(data, default=None):
+def get_data_to_node(data, default=None):
     return get_property(id(data),
                         utils.get_all_types(data),
                         None,
                         config.type_to_node, 
                         default )
 
-def get_color(node, default='white'):
+def default_to_string(data):
+    """ Convert data to string. """
+    try:
+        if isinstance(data, str):
+            s = data
+        else:
+            s = str(data)
+        return utils.limit_string(s)
+    except Exception as e:
+        return f'no stringification, {type(e).__name__}: {e}'
+
+def get_to_string(data, default=lambda s: default_to_string(s)):
+    return get_property(id(data),
+                        utils.get_all_types(data),
+                        None,
+                        config.type_to_string, 
+                        default )
+
+def get_node_color(node, default='white'):
     return get_property(node.get_id(),
                         utils.get_all_types(node.get_data()),
                         type(node),
                         config.type_to_color, 
                         default)
     
-def get_vertical(node, default):
+def get_node_vertical(node, default):
     horizontal = get_property(node.get_id(),
                               utils.get_all_types(node.get_data()),
                               type(node),
@@ -52,7 +64,7 @@ def get_vertical(node, default):
                         config.type_to_vertical,
                         default)
 
-def get_slicer(node, data, default=Slicer(3,2,3)):
+def get_node_slicer(node, data, default=Slicer(3,2,3)):
     return get_property(id(data),
                         utils.get_all_types(node.get_data()),
                         type(node), 
