@@ -564,18 +564,18 @@ except Exception as e:
     raise e                        # reraise to print traceback
 ```
 ```
-$ python example.py
+$ python exception_example.py
 Traceback (most recent call last):
-  File "/home/username/example.py", line 18, in <module>
+  File "exception_example.py", line 18, in <module>
     raise e                        # raise to print traceback
     ^^^^^^^
-  File "/home/username/example.py", line 15, in <module>
+  File "exception_example.py", line 15, in <module>
     fun1()
-  File "/home/username/example.py", line 12, in fun1
+  File "exception_example.py", line 12, in fun1
     fun2()
-  File "/home/username/example.py", line 9, in fun2
+  File "exception_example.py", line 9, in fun2
     fun3()
-  File "/home/username/example.py", line 6, in fun3
+  File "exception_example.py", line 6, in fun3
     d[i] = i  # throws IndexError when i = 3
     ~^^^
 IndexError: list assignment index out of range
