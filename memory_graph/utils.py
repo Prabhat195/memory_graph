@@ -5,6 +5,8 @@
 import math 
 import types
 import functools
+import traceback
+import re
 
 import memory_graph.config as config
 
@@ -13,6 +15,25 @@ def limit_string(s):
     if len(s) > config.max_string_length:
         return s[:config.max_string_length] + '...'
     return s
+
+def exception_to_string(e):
+    """ Helper function to convert the traceback of an exception to a string. """
+    return ''.join(traceback.format_exception(type(e), e, e.__traceback__)).strip()
+
+def exception_to_string_no_path(e):
+    """ Helper function to convert the traceback of an exception to a string without file paths. """
+    s = exception_to_string(e)
+    # Convert traceback file paths like File "/a/b/c.py" to File "c.py".
+    return re.sub(
+        r'(^\s*File ")(.*?)(")',
+        lambda m: f'{m.group(1)}{m.group(2).replace("\\", "/").rsplit("/", 1)[-1]}{m.group(3)}',
+        s,
+        flags=re.MULTILINE,
+    )
+
+def exception_to_string_short(e):
+    """ Helper function to convert an exception to a short string. """
+    return f'{type(e).__name__}: {e}'
 
 def get_all_types(obj):
     cls = type(obj)
