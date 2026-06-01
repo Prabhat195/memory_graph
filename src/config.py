@@ -120,6 +120,21 @@ mg.config_default.reset()
 del MyClass, a
 
 
+# Exceptions
+
+mylist = [1, 2]
+try:
+    mylist[2]
+except Exception as e:
+    print(e)
+    # choose shorter string representation for BaseException
+    mg.config.type_to_string[BaseException] = lambda data: mg.utils.exception_to_string_short(data)
+    print(mg.utils.exception_to_string_short(e))
+
+mg.config_default.reset()
+del mylist
+
+
 # Font
 
 import string
@@ -140,4 +155,4 @@ for font in webfonts:
 mg.config.fontsize = '32'          # change font size
 
 mg.config_default.reset()
-del lower, upper, punctuation, webfonts
+del lower, upper, punctuation, webfonts, font
