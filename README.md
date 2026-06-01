@@ -14,7 +14,7 @@ Run a live demo in the 👉 [**Memory Graph Web Debugger**](https://memory-graph
 - understand function calls, variable scope, and the **complete program state** through call stack visualization
 
 An example Binary Tree data structure:
-![images/bin_tree_vs.gif](https://raw.githubusercontent.com/bterwijn/memory_graph/main/images/bin_tree_vs.gif)
+![bin_tree_vs.gif](https://raw.githubusercontent.com/bterwijn/memory_graph/main/images/bin_tree_vs.gif)
 Or see it in the [Memory Grah Web Debugger](https://memory-graph.com/#codeurl=https://raw.githubusercontent.com/bterwijn/memory_graph/refs/heads/main/src/bin_tree.py&timestep=0.2&play).
 
 # Videos #
@@ -564,18 +564,18 @@ except Exception as e:
     raise e                        # reraise to print traceback
 ```
 ```
-$ python exception_example.py
+$ python example.py
 Traceback (most recent call last):
-  File "/home/bterwijn/temp/e.py", line 18, in <module>
+  File "/home/username/example.py", line 18, in <module>
     raise e                        # raise to print traceback
     ^^^^^^^
-  File "/home/bterwijn/temp/e.py", line 15, in <module>
+  File "/home/username/example.py", line 15, in <module>
     fun1()
-  File "/home/bterwijn/temp/e.py", line 12, in fun1
+  File "/home/username/example.py", line 12, in fun1
     fun2()
-  File "/home/bterwijn/temp/e.py", line 9, in fun2
+  File "/home/username/example.py", line 9, in fun2
     fun3()
-  File "/home/bterwijn/temp/e.py", line 6, in fun3
+  File "/home/username/example.py", line 6, in fun3
     d[i] = i  # throws IndexError when i = 3
     ~^^^
 IndexError: list assignment index out of range
