@@ -5,6 +5,7 @@
 from memory_graph.node_base import Node_Base 
 import memory_graph.node_base
 import memory_graph.config as config
+import memory_graph.config_helpers as config_helpers
 import html
 
 def html_table_frame(s, border, color, spacing=5):
@@ -12,11 +13,11 @@ def html_table_frame(s, border, color, spacing=5):
     return (f'<\n<TABLE BORDER="{border}" CELLBORDER="1" CELLSPACING="{spacing}" CELLPADDING="0" BGCOLOR="{color}" PORT="table">\n    <TR>' +
             s + '</TR>\n</TABLE>\n>')
 
-def format_string(s):
-    """ Helper function to format the string s to be shown in the graph. Setting the max_string_length and escaping html characters. """
-    s = config.to_string(s)
-    s = (s[:config.max_string_length] + '...') if len(s) > config.max_string_length else s
-    return html.escape(s)
+def format_string(value):
+    """ Helper function to format 'value' to be shown in the graph. We escape html characters and convert newlines to <BR/> tags. """
+    to_string = config_helpers.get_to_string(value)
+    s = html.escape(to_string(value))
+    return s.replace('\n', ' <BR/> ')
 
 class HTML_Table:
     """
@@ -54,11 +55,6 @@ class HTML_Table:
             self.html += '</TR>\n    <TR>'
             self.add_new_line_flag = False
 
-    def add_string(self, s, border=0):
-        """ Add a string s to the table. """
-        self.html += f'<TD BORDER="{border}">'+format_string(s)+'</TD>'
-        self.is_empty = False
-
     def add_index(self, s):
         """ Add an index s to the table. """
         self.check_add_new_line()
@@ -67,7 +63,6 @@ class HTML_Table:
 
     def add_entry(self, node, nodes, child, id_to_slices, rounded=False, border=1, dashed=False, embed=False):
         """ Add child to the table either as reference if it is a Node_Base or as a value otherwise. """
-        #print('child:', child)
         child_id = id(child)
         if not embed and child_id in nodes:
             child = nodes[child_id] 
@@ -78,11 +73,12 @@ class HTML_Table:
         else:
             self.add_value(child, rounded, border)
 
-    def add_value(self, s, rounded=False, border=1):
-        """ Helper function to add a value s to the table. """
+    def add_value(self, value, rounded=False, border=1):
+        """ Helper function to add 'value' to the table. """
         self.check_add_new_line()
         r = ' STYLE="ROUNDED"' if rounded else ''
-        self.html += f'<TD BORDER="{border}"{r}> {format_string(s)} </TD>'
+        self.html += f'<TD BORDER="{border}"{r}> {format_string(value)} </TD>'
+        self.is_empty = False
         self.col_count += 1
 
     def add_reference(self, node, child, rounded=False, border=1, dashed=False):
@@ -106,7 +102,7 @@ class HTML_Table:
         """ Construct the HTML table string with the 'border' and 'color' settings. """
         if self.col_count == 0 and self.row_count == 0:
             if self.is_empty:
-                self.add_string(' ')
+                self.add_value('', border=0)
             return html_table_frame(self.html, border, color, spacing=0)
         return html_table_frame(self.html, border, color)
     

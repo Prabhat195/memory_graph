@@ -105,7 +105,7 @@ class Node_Base(ABC):
         return html_table
     
     def get_slicer(self):
-        return config_helpers.get_slicer(self, self.get_data())
+        return config_helpers.get_node_slicer(self, self.get_data())
     
     def is_hidden_node(self):
         """

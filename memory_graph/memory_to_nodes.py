@@ -20,15 +20,11 @@ def read_nodes(data):
     - the id of 'data' as root node.
     """
 
-    def data_to_node(data_id, data_type, data):
+    def data_to_node(data):
         """ Returns the Node for 'data' based on it's id or type. """
-        if data_id in config.type_to_node: # for ids
-            return config.type_to_node[data_id](data)
-        elif data_type in config.type_to_node: # for predefined types
-            return config.type_to_node[data_type](data)
-        elif isinstance(data, type) and type in config.type_to_node:
-            # Handle classes with custom metaclasses (for example abc.ABCMeta).
-            return config.type_to_node[type](data)
+        to_node = config_helpers.get_data_to_node(data)
+        if (to_node):
+            return to_node(data)
         elif utils.has_dict_attributes(data): # for user defined classes
             return Node_Key_Value(data, utils.filter_dict(utils.get_dict_attributes(data)) )
         elif utils.is_finite_iterable(data): # for lists, tuples, sets, ...
@@ -46,7 +42,7 @@ def read_nodes(data):
             if data_id in nodes:
                 node = nodes[data_id]
             else:
-                node = data_to_node(data_id, data_type, data)
+                node = data_to_node(data)
                 if isinstance(node, Node_Key_Value):
                     nodes_key_value.append(data_id)
                 nodes[data_id] = node
@@ -219,7 +215,7 @@ def build_graph(graphviz_graph, nodes, root_id, id_to_slices):
         """ Adds 'node' to 'graphviz_graph' with its children and edges. """
         html_table = node.get_html_table(nodes, slices, id_to_slices)
         edges = html_table.get_edges()
-        color = config_helpers.get_color(node)
+        color = config_helpers.get_node_color(node)
         border = 3 if node.is_root() else 1
         if config.type_labels:
             graphviz_graph.node(node.get_name(),

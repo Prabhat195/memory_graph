@@ -27,16 +27,6 @@ no_index_types = {}
 
 type_to_string = { }
 
-def to_string(data):
-    """ Convert data to string. """
-    try:
-        data_type = type(data)
-        if data_type in type_to_string:
-            return type_to_string[data_type](data)
-        return str(data)
-    except Exception as e:
-        return f'no stringification, {type(e).__name__}: {e}'
-
 type_to_node = { }
 
 type_to_color = { }

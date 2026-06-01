@@ -60,11 +60,12 @@ def reset():
 
     """ Types that need a special conversion """
     config.type_to_string = {
-        types.FunctionType: lambda data: data.__qualname__,
-        types.MethodType: lambda data: data.__qualname__,
-        classmethod: lambda data: data.__qualname__,
-        staticmethod: lambda data: data.__qualname__,
-        type(len): lambda data: data.__qualname__,
+        types.FunctionType: lambda data: utils.limit_string(data.__qualname__),
+        types.MethodType: lambda data: utils.limit_string(data.__qualname__),
+        classmethod: lambda data: utils.limit_string(data.__qualname__),
+        staticmethod: lambda data: utils.limit_string(data.__qualname__),
+        type(len): lambda data: utils.limit_string(data.__qualname__),
+        BaseException: lambda data: utils.exception_to_string(data),
     }
     
     """ Conversion from type to Node objects. """
@@ -78,6 +79,7 @@ def reset():
             if dict in config.embedding_types else 
             Node_Linear(data, utils.filter_dict(data) )
         ),
+        BaseException: lambda data: Node_Leaf(data, data),
     }
     
     """ Colors of different types in the graph. """
@@ -103,6 +105,8 @@ def reset():
         dict : "#60a5ff",
         types.MappingProxyType : "dodgerblue2", # not used
         range : "cornsilk2",
+        # ================= exception
+        BaseException : "#ff5555",
     }
 
 
