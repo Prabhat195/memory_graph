@@ -78,7 +78,7 @@ def reset():
             if dict in config.embedding_types else 
             Node_Linear(data, utils.filter_dict(data) )
         ),
-        BaseException: lambda data: Node_Leaf(data, str(data)),
+        BaseException: lambda data: Node_Leaf(data, data),
     }
     
     """ Colors of different types in the graph. """
