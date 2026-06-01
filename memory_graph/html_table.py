@@ -13,21 +13,10 @@ def html_table_frame(s, border, color, spacing=5):
     return (f'<\n<TABLE BORDER="{border}" CELLBORDER="1" CELLSPACING="{spacing}" CELLPADDING="0" BGCOLOR="{color}" PORT="table">\n    <TR>' +
             s + '</TR>\n</TABLE>\n>')
 
-def to_string(data):
-    """ Convert data to string. """
-    try:
-        data_type = type(data)
-        if data_type in config.type_to_string:
-            return config.type_to_string[data_type](data)
-        return str(data)
-    except Exception as e:
-        return f'no stringification, {type(e).__name__}: {e}'
-
-def format_string(s):
-    """ Helper function to format the string s to be shown in the graph. Setting the max_string_length and escaping html characters. """
-    s = to_string(s)
-    #s = config_helpers.get_to_string(s)
-    s = html.escape(s)
+def format_string(value):
+    """ Helper function to format 'value' to be shown in the graph. We escape html characters and convert newlines to <BR/> tags. """
+    to_string = config_helpers.get_to_string(value)
+    s = html.escape(to_string(value))
     return s.replace('\n', ' <BR/> ')
 
 class HTML_Table:
@@ -66,11 +55,6 @@ class HTML_Table:
             self.html += '</TR>\n    <TR>'
             self.add_new_line_flag = False
 
-    def add_string(self, s, border=0):
-        """ Add a string s to the table. """
-        self.html += f'<TD BORDER="{border}">'+format_string(s)+'</TD>'
-        self.is_empty = False
-
     def add_index(self, s):
         """ Add an index s to the table. """
         self.check_add_new_line()
@@ -85,15 +69,21 @@ class HTML_Table:
             if child_id in id_to_slices:
                 self.add_reference(node, child, rounded, border, dashed)
             else:
-                self.add_value(config.graph_cut_symbol, rounded, border)
+                self.add_string(config.graph_cut_symbol, rounded, border)
         else:
             self.add_value(child, rounded, border)
 
-    def add_value(self, s, rounded=False, border=1):
-        """ Helper function to add a value s to the table. """
+    def add_string(self, s, rounded=False, border=0):
+        """ Add a string s to the table. """
+        r = ' STYLE="ROUNDED"' if rounded else ''
+        self.html += f'<TD BORDER="{border}"{r}>{s}</TD>'
+        self.is_empty = False
+
+    def add_value(self, value, rounded=False, border=1):
+        """ Helper function to add 'value' to the table. """
         self.check_add_new_line()
         r = ' STYLE="ROUNDED"' if rounded else ''
-        self.html += f'<TD BORDER="{border}"{r}> {format_string(s)} </TD>'
+        self.html += f'<TD BORDER="{border}"{r}> {format_string(value)} </TD>'
         self.col_count += 1
 
     def add_reference(self, node, child, rounded=False, border=1, dashed=False):
